@@ -1,21 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Login from './login'
 import Browser from './Browser'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+
+
+
 
 function Body() {
-  const appRouter  = createBrowserRouter([
+  const dispatch = useDispatch();
+
+  const appRouter = createBrowserRouter([
     {
-      path:"/",
-      element: <Login/>
-    },{
+      path: "/",
+      element: <Login />
+    }, {
       path: "/browser",
-      element: <Browser/>
+      element: <Browser />
     }
-  ])
+  ]);
+
+  
+
+
   return (
     <div>
-    <RouterProvider router={appRouter}/>
+      <RouterProvider router={appRouter} />
     </div>
   )
 }
