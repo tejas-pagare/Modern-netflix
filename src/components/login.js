@@ -6,6 +6,7 @@ import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { BG_URL } from '../utils/constants';
 
 function Login() {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ function Login() {
     <div className='relative'>
       <Header />
       <div className='h-[100vh]'>
-        <img className='w-full h-full object-cover absolute inset-0' src='https://assets.nflxext.com/ffe/siteui/vlv3/04bef84d-51f6-401e-9b8e-4a521cbce3c5/null/IN-en-20240903-TRIFECTA-perspective_0d3aac9c-578f-4e3c-8aa8-bbf4a392269b_medium.jpg' />
+        <img className='w-full h-full object-cover absolute inset-0' src={BG_URL} />
       </div>
       <form onSubmit={(e) => e.preventDefault()} className='bg-black w-80 lg:mt-4 bg-opacity-[85%] absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]  flex items-start justify-center flex-col gap-8 py-12 px-8 text-white z-10 overflow-hidden'>
         <h1 className='text-white text-3xl font-bold'>{isSignInForm ? "Sign In" : "Sign Up"} </h1>

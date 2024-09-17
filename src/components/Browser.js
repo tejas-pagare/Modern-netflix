@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react'
+
 import Header from './Header'
-import { APT_OPTIONS } from '../utils/constants';
-import { useDispatch } from 'react-redux';
-import { addNowPlayingMovies } from '../utils/movieSlice';
 import useNowPlayingMovies from '../hooks/useNowPlayingMovies';
 import MainContainer from './MainContainer';
 import SecondaryContainer from './SecondaryContainer';
+import usePopularMovies from '../hooks/usePopularMovies';
+import useUpcomingMovies from '../hooks/useUpcomingMovies';
+import GPTSearch from './GPTSearch';
+import { useSelector } from 'react-redux';
 
 function Browser() {
+  const showGptSearch = useSelector((state) => state.gpt.showGptSearchView);
+
 useNowPlayingMovies();
+usePopularMovies();
+useUpcomingMovies();
   return (
     <div>
       {/*
@@ -22,8 +27,11 @@ useNowPlayingMovies();
 
      */}
       <Header />
+      {showGptSearch ? <GPTSearch/>:(<>
+      
       <MainContainer/>
       <SecondaryContainer/>
+      </>)}
     </div>
   )
 }

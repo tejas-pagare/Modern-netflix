@@ -3,11 +3,15 @@ import img from '../utils/Logo.png'
 import { auth } from '../utils/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { addUser, removeUser } from '../utils/userSlice';
-import { useDispatch } from 'react-redux';
-import { USER_AVATAR } from '../utils/constants';
+import { addUser, getUser, removeUser } from '../utils/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { SUPORTED_LANGUAGES, USER_AVATAR } from '../utils/constants';
+import { toggleGptSearchView } from '../utils/gptSlice.js'
+import { changeLanguage } from '../utils/configSlice.js';
 function Header() {
   //let [state, setState] = useState(null);
+  //console.log("user", getUser());
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSignOut = () => {
@@ -22,16 +26,16 @@ function Header() {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
-     // console.log(user);
+      console.log("user", user);
       if (user) {
         const { uid, email, displayName, photoURl } = user;
         dispatch(addUser({ uid, email, displayName, photoURl }))
         navigate("/browser")
-        // setState(user);
+
       } else {
         dispatch(removeUser());
         navigate("/");
-        // setState(null);
+
 
       }
     })
@@ -39,13 +43,30 @@ function Header() {
     //callwhen component unmount
     return unSubscribe();
   }, [])
+
+  const handleGptSearchClick = () => {
+    dispatch(toggleGptSearchView())
+  }
+  const handleLanguageChange = (e)=>{
+    dispatch(changeLanguage(e.target.value))
+  }
+
+  const showGptSearch = useSelector((store)=>store.gpt.showGptSearchView)
   return (
     <div className='absolute w-full bg-gradient-to-b from-black z-10 p-3 flex justify-between items-center'>
-      <img className='h-12 p-0  ' src={img} alt='Logo' />
-      <div className='flex gap-2'>
+      <img className='h-8   ' src={img} alt='Logo' />
+      {<div className='flex gap-2'>
+        <select onChange={handleLanguageChange} className='bg-black bg-opacity-60 rounded-md text-white outline-none'>
+          {SUPORTED_LANGUAGES.map((index, key) => {
+            return <option className={index.identifier} key={key}>{index.language}</option>
+          })}
+        </select>
+        <button
+          onClick={handleGptSearchClick}
+          className='px-2 py-1 bg-red-600 font-semibold hover:bg-red-500 text-white rounded-md border-red-700'>{showGptSearch ? "Homepage" : "GPT Search"}</button>
         <img className='w-8' src={USER_AVATAR} />
         <button onClick={handleSignOut} className='text-white font-semibold'>Sign Out</button>
-      </div>
+      </div>}
     </div>
   )
 }
