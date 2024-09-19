@@ -16,7 +16,8 @@ function Body() {
       element: <Login />
     }, {
       path: "/browser",
-      element: <Browser />
+      element: <Browser />,
+    
     }
   ]);
 

@@ -7,9 +7,20 @@ import usePopularMovies from '../hooks/usePopularMovies';
 import useUpcomingMovies from '../hooks/useUpcomingMovies';
 import GPTSearch from './GPTSearch';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Browser() {
-  const showGptSearch = useSelector((state) => state.gpt.showGptSearchView);
+  const navigate = useNavigate();
+  const user = useSelector((store)=>store.user);
+const showGptSearch = useSelector((state) => state.gpt.showGptSearchView);
+useEffect(()=>{
+console.log("user: ",user);
+if(!user){
+  navigate("/");
+  return;
+}
+},[])
 
 useNowPlayingMovies();
 usePopularMovies();

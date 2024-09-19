@@ -1,15 +1,17 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from './Header'
 import { checkValidData } from '../utils/validate';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {  createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { BG_URL } from '../utils/constants';
+import lang from '../utils/languageConstant';
 
 function Login() {
   const navigate = useNavigate();
+  const language = useSelector((store) => store.config.language)
   const [isSignInForm, SetSignInForm] = useState(true);
   const toogleSignInForm = () => {
     SetSignInForm(!isSignInForm);
@@ -40,23 +42,21 @@ function Login() {
           }).then(() => {
             // Profile updated!
             
-            const { uid, email, displayName,photoURL } = user;
+            const { uid, email, displayName,photoURL } = auth.currentUser;
   
             dispatch(addUser({ uid, email, displayName, photoURL }));
             navigate("/browser");
             // ...
           }).catch((error) => {
-            // An error occurred
-            // ...
+            
             setErrorMsg(error.message);
           });
-          //console.log(user)
-          // ...
+          
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          // ..
+          
           setErrorMsg(errorCode + "-" + errorMessage);
         });
 
@@ -84,25 +84,30 @@ function Login() {
 
 
   }
+
+  // useEffect(()=>{
+  //   console.log(language);
+  // },[])
   return (
     <div className='relative'>
       <Header />
       <div className='h-[100vh]'>
         <img className='w-full h-full object-cover absolute inset-0' src={BG_URL} />
       </div>
-      <form onSubmit={(e) => e.preventDefault()} className='bg-black w-80 lg:mt-4 bg-opacity-[85%] absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]  flex items-start justify-center flex-col gap-8 py-12 px-8 text-white z-10 overflow-hidden'>
-        <h1 className='text-white text-3xl font-bold'>{isSignInForm ? "Sign In" : "Sign Up"} </h1>
+      <form onSubmit={(e) => e.preventDefault()} className='bg-black w-80 lg:mt-4 bg-opacity-[85%] absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]  flex items-start justify-center flex-col gap-6 py-12 px-8 text-white z-10 overflow-hidden'>
+        <h1 className='text-white text-3xl font-bold'>{isSignInForm ? lang[language].signInButton : lang[language].signUpButton} </h1>
         {!isSignInForm && (
-          <input ref={name} className='border-[0.5px] border-gray-600 px-2 py-3 bg-transparent block outline-none w-[100%] font-medium rounded-[4px]' type='text' placeholder='Enter Username' />
+          <input ref={name} className='border-[0.5px] border-gray-600 px-2 py-3 bg-transparent block outline-none w-[100%] font-medium rounded-[4px]' type='text' placeholder={lang[language].username} />
         )}
-        <input ref={email} className='border-[0.5px] border-gray-600 px-2 py-3 bg-transparent block outline-none w-[100%] font-medium rounded-[4px]' type='text' placeholder='Enter Email' />
-        <input ref={password} className='border-[0.5px] border-gray-600 px-2 py-3 bg-transparent block outline-none w-[100%] font-medium rounded-[4px]' type='password' placeholder='Enter Password' />
-        <button onClick={handleButtonClick} className='bg-red-700 text-white px-2 py-2 block w-[100%] font-medium rounded-[4px]'>{isSignInForm ? "Sign In" : "Sign Up"}</button>
+        <input ref={email} className='border-[0.5px] border-gray-600 px-2 py-3 bg-transparent block outline-none w-[100%] font-medium rounded-[4px]' type='text' placeholder={lang[language].email} />
+        <input ref={password} className='border-[0.5px] border-gray-600 px-2 py-3 bg-transparent block outline-none w-[100%] font-medium rounded-[4px]' type='password' placeholder={lang[language].password} />
+        <button onClick={handleButtonClick} className='bg-red-700 text-white px-2 py-2 block w-[100%] font-medium rounded-[4px]'>{isSignInForm ? lang[language].signInButton : lang[language].signUpButton}</button>
         <p>
           {errorMsg ? <span className='text-red-600'>{errorMsg}</span> : null}
         </p>
         <p onClick={toogleSignInForm} className='text-sm font-normal cursor-pointer'>
-          {isSignInForm ? "New to Netflix? Sign Up Now!" : "Already a user? Sign In Now!"}
+          {/* {isSignInForm ? "New to Netflix? Sign Up Now!" : "Already a user? Sign In Now!"} */}
+          {isSignInForm ? lang[language].newToNetflixPara : lang[language].allReadyUserPara}
         </p>
       </form>
     </div>

@@ -17,3 +17,9 @@ export const SUPORTED_LANGUAGES = [
   {identifier:"hindi",language:"hindi"},
 ]
 
+export const 
+OPENAI_KEY="sk-3BH7wXY7Rz3dXk3pwB2jMB4eHdUF6SHTLlXBTcPNbNT3BlbkFJ6jE11dltbLr43JVp3ANvEAx8mW_4LDJ7Co8KAO69kA";
+
+
+export const GEMINI_API_KEY="AIzaSyB0-b2JWG4cObVojtjJzrvAe3yopeDYhL8"
+

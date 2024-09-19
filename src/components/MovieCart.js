@@ -5,7 +5,7 @@ function MovieCart({movie}) {
   
   return (
     <>
-      <img className='w-36 px-2' src={IMG_CDN_URL+movie.poster_path} />
+     {movie.backdrop_path&& <img className='w-48 h-36 object-cover object-center px-2' src={IMG_CDN_URL+movie.backdrop_path} />}
     </>
   )
 }
