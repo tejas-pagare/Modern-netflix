@@ -54,7 +54,7 @@ function Header() {
 
   const showGptSearch = useSelector((store) => store.gpt.showGptSearchView)
   return (
-    <div className='absolute w-full bg-gradient-to-b from-black z-10 p-3 flex justify-between items-center'>
+    <div className='absolute w-full bg-gradient-to-b from-black z-10 p-3 flex flex-col gap-4 md:flex-row justify-between items-center'>
       <img className='h-8   ' src={img} alt='Logo' />
       {<div className='flex gap-2'>
         <select onChange={handleLanguageChange} className='bg-black bg-opacity-60 rounded-md text-white outline-none'>

@@ -46,7 +46,7 @@ function Login() {
   
             dispatch(addUser({ uid, email, displayName, photoURL }));
             navigate("/browser");
-            // ...
+            
           }).catch((error) => {
             
             setErrorMsg(error.message);

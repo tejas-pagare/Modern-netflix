@@ -5,7 +5,7 @@ export const APT_OPTIONS = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiZTM2OWRhYmIzMTdmOWNiYWU1ZmI5OTNlODliZWM5YiIsIm5iZiI6MTcyNjM5MTU1OC42NTAyMzgsInN1YiI6IjY2ZTY5NGY2ZDdiY2NhNTI0ZGIwNmU1ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pC0xZThGx-xdnU1aFDEE8RHg0pKesJ_QjR12j0aDNBQ'
+    Authorization: 'Bearer '+process.env.REACT_APP_TMDB_KEY
   }
 };
 
@@ -21,5 +21,5 @@ export const
 OPENAI_KEY="sk-3BH7wXY7Rz3dXk3pwB2jMB4eHdUF6SHTLlXBTcPNbNT3BlbkFJ6jE11dltbLr43JVp3ANvEAx8mW_4LDJ7Co8KAO69kA";
 
 
-export const GEMINI_API_KEY="AIzaSyB0-b2JWG4cObVojtjJzrvAe3yopeDYhL8"
+export const GEMINI_API_KEY="AIzaSyBvr8iaWkeNXDtjdTb9GDu5OsH-aG8FTRE"
 

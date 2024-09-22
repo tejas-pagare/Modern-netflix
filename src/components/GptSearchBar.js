@@ -42,7 +42,7 @@ function GptSearchBar() {
   }
 
   return (
-    <div className='pt-20 flex justify-center'>
+    <div className='pt-32 flex justify-center '>
       <form className='text-center py-3 rounded-md flex gap-2 items-center justify-center bg-black w-[80%] sm:w-[60%]' onSubmit={(e) => e.preventDefault()}>
         <input
           ref={searchQuery}

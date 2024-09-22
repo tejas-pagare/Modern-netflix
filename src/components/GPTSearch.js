@@ -2,8 +2,10 @@ import React from 'react'
 import GptSearchBar from './GptSearchBar'
 import GptMovieSuggestions from './GptMovieSuggestions'
 import { BG_URL } from '../utils/constants'
+import { useSelector } from 'react-redux'
 
 function GPTSearch() {
+  
   return (
     <div className=' w-full min-h-screen'>
       <div className=''>
